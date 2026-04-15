@@ -34,5 +34,11 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
-
+    
+    'wb' => [
+        'limit' => 500,
+        'key' => env('WB_API_KEY'),
+        'base_url' => 'http://109.73.206.144:6969',
+        'date_from_default' => '2023-01-01',
+    ],
 ];
