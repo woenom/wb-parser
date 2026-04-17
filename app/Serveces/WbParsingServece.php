@@ -4,9 +4,10 @@ namespace App\Serveces;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Artisan;
 class WbParsingServece
 {
-    public function parseEndpoint(string $table, string $endpoint, string $dateFrom, array $id, array $params = [])
+    public function parseEndpoint($cmd, string $table, string $endpoint, string $dateFrom, array $id, array $params = [])
     {
         // Значения
         $limit = config('services.wb.limit');;
@@ -15,7 +16,7 @@ class WbParsingServece
 
         $cacheKey = "parser_page_{$table}";
         $page = cache()->get($cacheKey, 1);
-        $pagesPerRun = 20; 
+        $pagesPerRun = 25; 
         $targetPage = $page + $pagesPerRun;
 
         do {
@@ -35,7 +36,7 @@ class WbParsingServece
             // Заполнение таблицы
             if (!empty($items)) {
                 DB::table($table)->upsert($items, $id, array_keys($items[0]));
-                
+                $cmd->info("Номер страницы таблицы {$table}: {$page}");
                 $page++;
                 // Сохраняем прогресс после каждой успешной страницы
                 cache()->put($cacheKey, $page); 

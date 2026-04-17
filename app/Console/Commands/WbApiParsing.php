@@ -49,7 +49,7 @@ class WbApiParsing extends Command
             $uniqueKey = (array)($uniqueKeys[$table] ?? ['id']);
 
             // Парсинг
-            $parser->parseEndpoint($table, $url, $date, $uniqueKey);
+            $parser->parseEndpoint($this, $table, $url, $date, $uniqueKey);
         }
 
         // Сообщение
