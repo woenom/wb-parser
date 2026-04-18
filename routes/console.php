@@ -6,4 +6,4 @@ use Illuminate\Support\Facades\Artisan;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
-Schedule::command('app:wb-api-parsing')->withoutOverlapping()->appendOutputTo(storage_path('logs/wb-parsing-info.log'));
+Schedule::command('app:wb-api-parsing')->cron('*/1 * * * *')->withoutOverlapping()->appendOutputTo(storage_path('logs/wb-parsing-info.log'));
